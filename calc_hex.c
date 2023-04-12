@@ -17,12 +17,10 @@
 //#include "libft.h"
 #include <stdio.h>
 
-/*void	create_hexnums(char c, char hexnums)
+void	putnbrulong(unsigned long num)
 {
-	hexnums = "0123456789abcdef";
-	if (c == 'X')
-		hexnums = "0123456789ABCDEF";
-}*/
+	
+}
 
 void	putnbrhex(int num, char c)
 {
