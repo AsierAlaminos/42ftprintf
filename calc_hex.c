@@ -19,7 +19,18 @@
 
 void	putnbrulong(unsigned long num)
 {
-	
+	char	c;
+
+	if (num <= 9)
+	{
+		c = num + '0';
+		write(1, &c, 1);
+	}
+	if (num > 9)
+	{
+		putnbrulong(num / 10);
+		putnbrulong(num % 10);
+	}
 }
 
 void	putnbrhex(int num, char c)
@@ -52,9 +63,12 @@ void	putnbrhex(int num, char c)
 
 int	main(void)
 {
-	int	n;
+	//int	n;
+	unsigned long	num;
 
-	n = 0x55F;
-	putnbrhex(n, 'x');
+	//n = 0x55F;
+	//putnbrhex(n, 'x');
+	num = 2147483650;
+	putnbrulong(num);
 	return (0);
 }
