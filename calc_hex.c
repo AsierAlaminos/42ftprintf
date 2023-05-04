@@ -61,14 +61,44 @@ void	putnbrhex(int num, char c)
 		write(1, &num_char[i--], 1);
 }
 
+void	putnbrlonghex(unsigned long num)
+{
+	char	*num_char;
+	char	*hex_nums;
+	unsigned long		temp;
+	int		i;
+
+	write(1, "0x", 2);
+	hex_nums = "0123456789abcdef";
+	i = 0;
+	temp = num;
+	while (temp != 0)
+	{
+		temp /= 16;
+		++i;
+	}
+	num_char = malloc(i + 1);
+	i = 0;
+	while (num != 0)
+	{
+		num_char[i++] = hex_nums[num % 16];
+		num /= 16;
+	}
+	while (i >= 0)
+		write(1, &num_char[i--], 1);
+}
+
 int	main(void)
 {
-	//int	n;
-	unsigned long	num;
+	unsigned long	n;
+	//int	num;
+	//void	*ptr;
 
-	//n = 0x55F;
-	//putnbrhex(n, 'x');
-	num = 2147483650;
-	putnbrulong(num);
+	n = 2147483649;
+	putnbrlonghex(n);
+	//num = 2147;
+	//ptr = (void *)2147;
+	//putnbrulong(num);
+	//print_hex_format(ptr);
 	return (0);
 }
