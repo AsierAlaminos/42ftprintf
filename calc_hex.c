@@ -6,18 +6,42 @@
 /*   By: asmus37 <asmus37@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:49:57 by asmus37           #+#    #+#             */
-/*   Updated: 2023/04/12 16:49:58 by asmus37          ###   ########.fr       */
+/*   Updated: 2023/06/05 14:01:26 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//crear una función que imprima un número en hexadecimal
 
 #include <unistd.h>
 #include <stdlib.h>
 //#include "libft.h"
 #include <stdio.h>
 
-void	putnbrulong(unsigned long num)
+int	putnbr(int num)
+{
+	char	n;
+
+	if (num == -2147483648)
+	{
+		write(1, "-2", 2);
+		putnbr(147483648, len + 2);
+	}
+	if (num < 0)
+	{
+		write(1, "-", 1);
+		putnbr(num - 1, len + 1);
+	}
+	if (num >= 0 || num <= 9)
+	{
+		n = num + '0';
+		write(1, &n, 1);
+	}
+	else
+	{
+		putnbr(num / 10);
+		return (putnbr(num % 10) + 1);
+	}
+}
+
+int	putnbrulong(unsigned long num)
 {
 	char	c;
 
@@ -29,16 +53,18 @@ void	putnbrulong(unsigned long num)
 	if (num > 9)
 	{
 		putnbrulong(num / 10);
-		putnbrulong(num % 10);
+		return (putnbrulong(num % 10) + 1);
 	}
+	return (0);
 }
 
-void	putnbrhex(int num, char c)
+int	putnbrhex(int num, char c)
 {
 	char	*num_char;
 	char	*hex_nums;
 	int		temp;
 	int		i;
+	int		len;
 
 	hex_nums = "0123456789abcdef";
 	if (c == 'X')
@@ -51,17 +77,19 @@ void	putnbrhex(int num, char c)
 		++i;
 	}
 	num_char = malloc(i + 1);
+	len = i + 1;
 	i = 0;
 	while (num != 0)
 	{
 		num_char[i++] = hex_nums[num % 16];
 		num /= 16;
 	}
-	while (i >= 0)
+	while (i >= 0){
 		write(1, &num_char[i--], 1);
+	return (len);
 }
 
-void	putnbrlonghex(unsigned long num)
+int	putnbrlonghex(unsigned long num)
 {
 	char	*num_char;
 	char	*hex_nums;
@@ -78,6 +106,7 @@ void	putnbrlonghex(unsigned long num)
 		++i;
 	}
 	num_char = malloc(i + 1);
+	len = i + 2;
 	i = 0;
 	while (num != 0)
 	{
@@ -86,8 +115,10 @@ void	putnbrlonghex(unsigned long num)
 	}
 	while (i >= 0)
 		write(1, &num_char[i--], 1);
+	return  (len);
 }
 
+/*
 int	main(void)
 {
 	unsigned long	n;
@@ -101,4 +132,4 @@ int	main(void)
 	//putnbrulong(num);
 	//print_hex_format(ptr);
 	return (0);
-}
+}*/
