@@ -10,35 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include <unistd.h>
 #include <stdlib.h>
-//#include "libft.h"
 #include <stdio.h>
 
 int	putnbr(int num)
 {
-	char	n;
+	int		len;
 
+	len = 0;
 	if (num == -2147483648)
 	{
 		write(1, "-2", 2);
-		putnbr(147483648, len + 2);
+		putnbr(147483648);
+		len += 2;
 	}
 	if (num < 0)
 	{
-		write(1, "-", 1);
-		putnbr(num - 1, len + 1);
+		len += ft_putchar('-');
+		putnbr(num - 1);
 	}
-	if (num >= 0 || num <= 9)
-	{
-		n = num + '0';
-		write(1, &n, 1);
-	}
+	if (num >= 0 && num <= 9)
+		len += ft_putchar(num + '0');
 	else
 	{
 		putnbr(num / 10);
-		return (putnbr(num % 10) + 1);
+		putnbr(num % 10);
 	}
+	return (len);
 }
 
 int	putnbrulong(unsigned long num)
@@ -58,55 +58,30 @@ int	putnbrulong(unsigned long num)
 	return (0);
 }
 
+int	nhexlen(int num)
+{
+	int	len;
+
+	while (num != 0)
+	{
+		num /= 16;
+		++len;
+	}
+	return (len);
+}
+
 int	putnbrhex(int num, char c)
 {
 	char	*num_char;
 	char	*hex_nums;
-	int		temp;
-	int		i;
 	int		len;
+	int		i;
 
 	hex_nums = "0123456789abcdef";
 	if (c == 'X')
 		hex_nums = "0123456789ABCDEF";
-	i = 0;
-	temp = num;
-	while (temp != 0)
-	{
-		temp /= 16;
-		++i;
-	}
-	num_char = malloc(i + 1);
-	len = i + 1;
-	i = 0;
-	while (num != 0)
-	{
-		num_char[i++] = hex_nums[num % 16];
-		num /= 16;
-	}
-	while (i >= 0){
-		write(1, &num_char[i--], 1);
-	return (len);
-}
-
-int	putnbrlonghex(unsigned long num)
-{
-	char	*num_char;
-	char	*hex_nums;
-	unsigned long		temp;
-	int		i;
-
-	write(1, "0x", 2);
-	hex_nums = "0123456789abcdef";
-	i = 0;
-	temp = num;
-	while (temp != 0)
-	{
-		temp /= 16;
-		++i;
-	}
-	num_char = malloc(i + 1);
-	len = i + 2;
+	len = nhexlen(num);
+	num_char = malloc(len + 1);
 	i = 0;
 	while (num != 0)
 	{
@@ -115,7 +90,29 @@ int	putnbrlonghex(unsigned long num)
 	}
 	while (i >= 0)
 		write(1, &num_char[i--], 1);
-	return  (len);
+	return (len);
+}
+
+int	putnbrlonghex(unsigned long num)
+{
+	char	*num_char;
+	char	*hex_nums;
+	int		len;
+	int		i;
+
+	write(1, "0x", 2);
+	hex_nums = "0123456789abcdef";
+	len = nhexlen(num);
+	num_char = malloc(len + 1);
+	i = 0;
+	while (num != 0)
+	{
+		num_char[i++] = hex_nums[num % 16];
+		num /= 16;
+	}
+	while (i >= 0)
+		write(1, &num_char[i--], 1);
+	return (len);
 }
 
 /*

@@ -3,54 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asmus37 <asmus37@student.42.fr>            +#+  +:+       +#+        */
+/*   By: asmus <asmus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 18:39:25 by asmus37           #+#    #+#             */
-/*   Updated: 2023/06/05 13:52:08 by aalamino         ###   ########.fr       */
+/*   Created: 2023/06/12 11:12:09 by asmus             #+#    #+#             */
+/*   Updated: 2023/06/12 11:12:10 by asmus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libft.h"
+#include "ft_printf.h"
 #include <stdarg.h>
-#include <unistd.h>
 #include <stdio.h>
-
-int	putnbrlonghex(unsigned long num);
-
-int	putnbrhex(int num, char c);
-
-int	putnbrulong(unsigned long num, int len);
-
-int	putnbr(int num, int len);
-
-int	ft_putchar(char	c);
-
-int	ft_print_str(char *str);
 
 int	ft_num_flags(char f, unsigned long num)
 {
 	if (f == 'p')
-		return (putnbrlonghex(num));
-	if (f == 'u')
-		return (putnbrulong(num, 0));
+	{
+		putnbrlonghex(num);
+		return (12);
+	}
+	else if (f == 'u')
+	{
+		putnbrulong(num);
+		return (1);
+	}
 	return (0);
 }
 
 int	ft_int_flags(char f, int num)
 {
 	if (f == 'd' || f == 'i')
-		return (putnbr(num, 0));
-	if (f == 'x' || f == 'X')
-		return (putnbrhex(num, f));
+	{
+		putnbr(num);
+		return (1);
+	}
+	else if (f == 'x' || f == 'X')
+	{
+		putnbrhex(num, f);
+		return (1);
+	}
 	return (0);
 }
 
 int	ft_char_flags(char f, char *str)
 {
 	if (f == 'c')
-		return (ft_putchar(*str));
-	if (f == 's')
-		return (ft_print_str(str));
+	{
+		ft_putchar(*str);
+		return (1);
+	}
+	else if (f == 's')
+	{
+		ft_print_str(str);
+		return (1);
+	}
 	return (0);
 }
 
@@ -69,27 +74,27 @@ int	ft_printf(char const *str, ...)
 				i += ft_putchar('%');
 			else if (str[i + 1] == 'c' || str[i + 1] == 's')
 				i += ft_char_flags(str[i + 1], va_arg(args, char *));
-			else if (str[i + 1] == 'd' || str[i + 1] == 'x' || 
-					str[i + 1] == 'X' || str[i + 1] == 'i')
+			else if (str[i + 1] == 'd' || str[i + 1] == 'x'
+				|| str[i + 1] == 'X' || str[i + 1] == 'i')
 				i += ft_int_flags(str[i + 1], va_arg(args, int));
 			else
 				i += ft_num_flags(str[i + 1], va_arg(args, unsigned long));
-			i += 2;
+			i++;
 		}
-		write(1, &str[i], 1);
-		++i;
+		else
+			write(1, &str[i++], 1);
 	}
-	printf("%d\n", i);
 	va_end(args);
-	return (1);
+	return (i);
 }
-
+/*
 int	main(void)
 {
-	int num;
+	int len;
+	int	lenf;
 
-	num = printf("%s\n", "esto");
-	printf("%d\n", num);
-	ft_printf("Esto %X = %p es un %% %s", 79, 79, "test");
+	len = printf("%s: %d / %x\n", "8x8", 8*8, 8*8);
+	lenf = ft_printf("%s: %d / %x\n", "8x8", 8*8, 8*8);
+	printf("printf: %d\nft_printf: %d\n", len, lenf);
 	return (0);
-}
+}*/
