@@ -6,7 +6,7 @@
 /*   By: asmus37 <asmus37@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:49:57 by asmus37           #+#    #+#             */
-/*   Updated: 2023/06/05 14:01:26 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:12:07 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	nhexlen(int num)
 {
 	int	len;
 
+	len = 0;
 	while (num != 0)
 	{
 		num /= 16;
@@ -114,7 +115,6 @@ int	putnbrlonghex(unsigned long num)
 		write(1, &num_char[i--], 1);
 	return (len);
 }
-
 /*
 int	main(void)
 {

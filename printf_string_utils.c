@@ -6,7 +6,7 @@
 /*   By: aalamino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:22:00 by aalamino          #+#    #+#             */
-/*   Updated: 2023/06/05 13:34:28 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:12:57 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	ft_putchar(char c)
+int	ft_putchar(int c)
 {
+	char	num;
+
+	num = c + '0';
 	write(1, &c, 1);
 	return (1);
 }
