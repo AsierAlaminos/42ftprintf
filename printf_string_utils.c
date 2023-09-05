@@ -6,7 +6,7 @@
 /*   By: aalamino <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:22:00 by aalamino          #+#    #+#             */
-/*   Updated: 2023/07/10 14:12:57 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:43:51 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_print_str(char *str)
 	int	i;
 
 	i = 0;
+	if (str == (char *) 'n')
+		str = "(null)";
 	while (str[i] != '\0')
 	{
 		ft_putchar(str[i]);

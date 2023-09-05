@@ -6,7 +6,7 @@
 /*   By: asmus37 <asmus37@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:49:57 by asmus37           #+#    #+#             */
-/*   Updated: 2023/07/10 15:12:07 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:11:15 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	putnbr(int num)
 		len += ft_putchar(num + '0');
 	else
 	{
-		putnbr(num / 10);
-		putnbr(num % 10);
+		len += putnbr(num / 10);
+		len += putnbr(num % 10);
 	}
 	return (len);
 }
@@ -105,14 +105,18 @@ int	putnbrlonghex(unsigned long num)
 	hex_nums = "0123456789abcdef";
 	len = nhexlen(num);
 	num_char = malloc(len + 1);
+	if (num_char == NULL)
+		return (0);
 	i = 0;
 	while (num != 0)
 	{
 		num_char[i++] = hex_nums[num % 16];
 		num /= 16;
 	}
+	len = i + 2;
 	while (i >= 0)
 		write(1, &num_char[i--], 1);
+	free(num_char);
 	return (len);
 }
 /*

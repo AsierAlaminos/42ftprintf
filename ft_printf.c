@@ -6,7 +6,7 @@
 /*   By: asmus <asmus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:12:09 by asmus             #+#    #+#             */
-/*   Updated: 2023/07/10 15:13:55 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:13:59 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,22 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-int	ft_flags(char f, va_list args)
+int	ft_long_flags(char f, va_list args)
 {
 	int	len;
+
+	len = 0;
+	if (f == 'p')
+		len += putnbrlonghex(va_arg(args, unsigned long));
+	else if (f == 'u')
+		len += putnbrulong(va_arg(args, unsigned long));
+	return (len);
+}
+
+int	ft_flags(char f, va_list args)
+{
+	int		len;
+	char	*str;
 
 	len = 0;
 	if (f == '%')
@@ -24,17 +37,20 @@ int	ft_flags(char f, va_list args)
 	else if (f == 'c')
 		len += ft_putchar(va_arg(args, int));
 	else if (f == 's')
-		len += ft_print_str(va_arg(args, char *));
+	{
+		str = va_arg(args, char *);
+		if (str == NULL)
+			return (len += ft_print_str((char *) 'n'));
+		len += ft_print_str(str);
+	}
 	else if (f == 'd')
 		len += putnbr(va_arg(args, int));
 	else if (f == 'x' || f == 'X')
 		len += putnbrhex(va_arg(args, int), f);
 	else if (f == 'i')
 		len += putnbr(va_arg(args, int));
-	else if (f == 'p')
-		len += putnbrlonghex(va_arg(args, unsigned long));
-	else if (f == 'u')
-		len += putnbrulong(va_arg(args, unsigned long));
+	else if (f == 'p' || f == 'u')
+		len += ft_long_flags(f, args);
 	return (len);
 }
 
@@ -65,10 +81,10 @@ int	ft_printf(char const *str, ...)
 int	main(void)
 {
 	int len;
-	//int	lenf;
+	int	lenf;
 
-	len = printf("NULL %s NULL", NULL);
-	//lenf = ft_printf("NULL %s NULL", NULL);
-	//printf("printf: %d\nft_printf: %d\n", len, lenf);
+	len = printf(" %p ", 17);
+	lenf = ft_printf(" %p ", 17);
+	printf("printf: %d\nft_printf: %d\n", len, lenf);
 	return (0);
 }
