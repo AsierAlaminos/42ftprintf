@@ -73,6 +73,10 @@ int	nhexlen(int num)
 
 int	putnbrhex(int num, char c)
 {
+	/*Puede que el fallo esté en que al hacer la conversión de decimal
+ 	a hexadecimal se guarda al reves, prueba a hacer en la variable num_char
+  	añadir los caracteres de atras hacia delate
+   	Ej: num_char[len--]*/
 	char	*num_char;
 	char	*hex_nums;
 	int		len;
