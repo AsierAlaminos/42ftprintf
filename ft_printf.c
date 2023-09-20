@@ -6,7 +6,7 @@
 /*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:12:09 by asmus             #+#    #+#             */
-/*   Updated: 2023/09/16 13:58:25 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:12:39 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	return (len);
 }
-
+/*
 int	main(void)
 {
 	int len;
@@ -88,4 +88,4 @@ int	main(void)
 	lenf = ft_printf("| %x |", 9223372036854775807LL);
 	printf("\nprintf: %d\tft_printf: %d\n", len, lenf);
 	return (0);
-}
+}*/
