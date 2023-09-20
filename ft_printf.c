@@ -6,7 +6,7 @@
 /*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:12:09 by asmus             #+#    #+#             */
-/*   Updated: 2023/09/20 17:12:39 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:11:29 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_flags(char f, va_list args)
 	else if (f == 'd')
 		len += putnbr(va_arg(args, int));
 	else if (f == 'x' || f == 'X')
-		len += putnbrhex(va_arg(args, unsigned long long), f);
+		len += putnbrhex(va_arg(args, unsigned int), f);
 	else if (f == 'i')
 		len += putnbr(va_arg(args, int));
 	else if (f == 'p' || f == 'u')
@@ -83,9 +83,10 @@ int	main(void)
 	int len;
 	int	lenf;
 
-	len = printf("| %x |", 9223372036854775807LL);
+	len = printf("| %x %x %x %x %x %x %x |", -2147483648, 2147483647, 2147483647, -2147483648, 4294967295, 0, -42);
 	printf("\n");
-	lenf = ft_printf("| %x |", 9223372036854775807LL);
+	lenf = ft_printf("| %x %x %x %x %x %x %x |", -2147483648, 2147483647, 2147483647, -2147483648, 4294967295, 0, -42);
+	printf("\n");
 	printf("\nprintf: %d\tft_printf: %d\n", len, lenf);
 	return (0);
 }*/

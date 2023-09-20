@@ -6,7 +6,7 @@
 /*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:49:57 by asmus37           #+#    #+#             */
-/*   Updated: 2023/09/16 14:02:14 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:13:48 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ int	print_hex(char *num, int size_num)
 	return (len);
 }
 
-int	putnbrhex(unsigned long long num, char c)
+int	putnbrhex(unsigned int num, char c)
 {
 	char	*num_char;
 	char	*hex_chars;
 	int		len;
 	int		i;
 
+	if (num == 0)
+		return (ft_putchar('0'));
 	hex_chars = "0123456789abcdef";
 	if (c == 'X')
 		hex_chars = "0123456789ABCDEF";
@@ -93,7 +95,6 @@ int	putnbrhex(unsigned long long num, char c)
 	i = 0;
 	while (num != 0)
 	{
-		printf("num: %llu\n", num);
 		num_char[i++] = hex_chars[num % 16];
 		num /= 16;
 	}

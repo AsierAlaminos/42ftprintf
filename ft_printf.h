@@ -6,7 +6,7 @@
 /*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:12:21 by asmus             #+#    #+#             */
-/*   Updated: 2023/09/09 15:31:59 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/20 17:46:25 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 int	putnbrlonghex(void *num, char *hex_chars);
-int	putnbrhex(unsigned long long num, char c);
+int	putnbrhex(unsigned int num, char c);
 int	putnbrulong(unsigned int num);
 int	putnbr(int num);
 int	ft_putchar(int c);
