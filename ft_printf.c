@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asmus <asmus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 11:12:09 by asmus             #+#    #+#             */
-/*   Updated: 2023/09/05 13:13:59 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:58:25 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_long_flags(char f, va_list args)
 
 	len = 0;
 	if (f == 'p')
-		len += putnbrlonghex(va_arg(args, unsigned long));
+		len += putnbrlonghex(va_arg(args, void *), "0123456789abcdef");
 	else if (f == 'u')
-		len += putnbrulong(va_arg(args, unsigned long));
+		len += putnbrulong(va_arg(args, unsigned int));
 	return (len);
 }
 
@@ -46,7 +46,7 @@ int	ft_flags(char f, va_list args)
 	else if (f == 'd')
 		len += putnbr(va_arg(args, int));
 	else if (f == 'x' || f == 'X')
-		len += putnbrhex(va_arg(args, int), f);
+		len += putnbrhex(va_arg(args, unsigned long long), f);
 	else if (f == 'i')
 		len += putnbr(va_arg(args, int));
 	else if (f == 'p' || f == 'u')
@@ -83,8 +83,9 @@ int	main(void)
 	int len;
 	int	lenf;
 
-	len = printf(" %p ", 17);
-	lenf = ft_printf(" %p ", 17);
-	printf("printf: %d\nft_printf: %d\n", len, lenf);
+	len = printf("| %x |", 9223372036854775807LL);
+	printf("\n");
+	lenf = ft_printf("| %x |", 9223372036854775807LL);
+	printf("\nprintf: %d\tft_printf: %d\n", len, lenf);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_string_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aalamino <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 17:22:00 by aalamino          #+#    #+#             */
-/*   Updated: 2023/09/05 12:43:51 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:06:34 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 
 int	ft_putchar(int c)
 {
-	char	num;
-
-	num = c + '0';
 	write(1, &c, 1);
 	return (1);
 }
@@ -36,4 +33,17 @@ int	ft_print_str(char *str)
 		++i;
 	}
 	return (i);
+}
+
+int	nhexlen(unsigned long long num)
+{
+	int	len;
+
+	len = 0;
+	while (num != 0)
+	{
+		num /= 16;
+		++len;
+	}
+	return (len);
 }

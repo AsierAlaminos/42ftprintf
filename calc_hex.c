@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_hex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asmus37 <asmus37@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aalamino <aalamino@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:49:57 by asmus37           #+#    #+#             */
-/*   Updated: 2023/09/05 13:11:15 by aalamino         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:02:14 by aalamino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	putnbr(int num)
 	if (num == -2147483648)
 	{
 		write(1, "-2", 2);
-		putnbr(147483648);
+		num = 147483648;
 		len += 2;
 	}
 	if (num < 0)
 	{
 		len += ft_putchar('-');
-		putnbr(num - 1);
+		num = num * -1;
 	}
 	if (num >= 0 && num <= 9)
 		len += ft_putchar(num + '0');
@@ -41,68 +41,51 @@ int	putnbr(int num)
 	return (len);
 }
 
-int	putnbrulong(unsigned long num)
+int	putnbrulong(unsigned int num)
 {
-	char	c;
-
-	if (num <= 9)
-	{
-		c = num + '0';
-		write(1, &c, 1);
-	}
-	if (num > 9)
-	{
-		putnbrulong(num / 10);
-		return (putnbrulong(num % 10) + 1);
-	}
-	return (0);
-}
-
-int	nhexlen(int num)
-{
-	int	len;
+	int		len;
 
 	len = 0;
-	while (num != 0)
+	if (num <= 9)
+		len += ft_putchar(num + '0');
+	if (num > 9)
 	{
-		num /= 16;
-		++len;
+		len += putnbrulong(num / 10);
+		len += putnbrulong(num % 10);
 	}
 	return (len);
 }
 
-int	putnbrhex(int num, char c)
+int	print_hex(char *num, int size_num)
+{
+	int		len;
+	char	print_char;
+
+	len = 0;
+	if (size_num == 0)
+		size_num++;
+	size_num--;
+	while (size_num >= 0)
+	{
+		print_char = num[size_num];
+		if (num[size_num] + '0' > 47 && num[size_num] + '0' < 58)
+			print_char = num[size_num] + '0';
+		len += ft_putchar(print_char);
+		size_num--;
+	}
+	return (len);
+}
+
+int	putnbrhex(unsigned long long num, char c)
 {
 	char	*num_char;
-	char	*hex_nums;
+	char	*hex_chars;
 	int		len;
 	int		i;
 
-	hex_nums = "0123456789abcdef";
+	hex_chars = "0123456789abcdef";
 	if (c == 'X')
-		hex_nums = "0123456789ABCDEF";
-	len = nhexlen(num);
-	num_char = malloc(len + 1);
-	i = 0;
-	while (num != 0)
-	{
-		num_char[i++] = hex_nums[num % 16];
-		num /= 16;
-	}
-	while (i >= 0)
-		write(1, &num_char[i--], 1);
-	return (len);
-}
-
-int	putnbrlonghex(unsigned long num)
-{
-	char	*num_char;
-	char	*hex_nums;
-	int		len;
-	int		i;
-
-	write(1, "0x", 2);
-	hex_nums = "0123456789abcdef";
+		hex_chars = "0123456789ABCDEF";
 	len = nhexlen(num);
 	num_char = malloc(len + 1);
 	if (num_char == NULL)
@@ -110,12 +93,36 @@ int	putnbrlonghex(unsigned long num)
 	i = 0;
 	while (num != 0)
 	{
-		num_char[i++] = hex_nums[num % 16];
+		printf("num: %llu\n", num);
+		num_char[i++] = hex_chars[num % 16];
 		num /= 16;
 	}
-	len = i + 2;
-	while (i >= 0)
-		write(1, &num_char[i--], 1);
+	len = i;
+	len = print_hex(num_char, i);
+	free(num_char);
+	return (len);
+}
+
+int	putnbrlonghex(void *num, char *hex_chars)
+{
+	char				*num_char;
+	int					len;
+	int					i;
+	unsigned long long	num_l;
+
+	write(1, "0x", 2);
+	num_l = (unsigned long long)num;
+	len = nhexlen(num_l);
+	num_char = malloc(len + 1);
+	if (num_char == NULL)
+		return (0);
+	i = 0;
+	while (num_l != 0)
+	{
+		num_char[i++] = hex_chars[num_l % 16];
+		num_l /= 16;
+	}
+	len = print_hex(num_char, i) + 2;
 	free(num_char);
 	return (len);
 }
