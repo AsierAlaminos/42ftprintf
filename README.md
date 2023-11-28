@@ -1,6 +1,6 @@
 ![42 Madrid](https://www.42madrid.com/wp-content/uploads/2019/11/logo-header@2x.png)
 
-# 42ftprintf 💻
+# 42ftprintf ![Static Badge](https://img.shields.io/badge/status-finish-00cc03)
 Este es mi proyecto de ft_printf de 42Madrid
 
 ### Descripción
