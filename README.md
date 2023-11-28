@@ -1,7 +1,7 @@
 ![42 Madrid](https://www.42madrid.com/wp-content/uploads/2019/11/logo-header@2x.png)
 
 # 42ftprintf 💻
-Este es mi proyecto de 42ftprintf de 42Madrid
+Este es mi proyecto de ft_printf de 42Madrid
 
 ### Descripción
 Este proyecto trata sobre replicar en baja escala la función printf en C, teniendo en cuenta las siguientes flags *%c %s %p %d %i %u %x %X %%*
